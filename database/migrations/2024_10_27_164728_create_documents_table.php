@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->enum('type', ['photo', 'medical_certificate']);
             $table->string('file_path');
-            $table->enum('status', ['en cours', 'approuver', 'refuser'])->default('en cours');
+            $table->string('status')->default('en cours');
             $table->timestamps();
 
             $table->foreignId('user_id')->constrained()->onDelete('cascade');

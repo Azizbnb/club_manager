@@ -16,10 +16,10 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('password');
-            $table->enum('gender', ['homme', 'femme']);
+            $table->string('gender');
             $table->date('birth_date');
             $table->string('email')->unique();
-            $table->enum('experience', ['débutant', 'intermédiaire', 'avancé']);
+            $table->string('experience');
             $table->string('address');
             $table->string('phone');
             $table->boolean('profile_status')->default(false);
