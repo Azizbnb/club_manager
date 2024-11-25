@@ -16,9 +16,8 @@ class RoleSeeder extends Seeder
         $userRole = Role::create(['name' => 'Utilisateur simple']);
 
         // Création des permissions
-        Permission::create(['name' => 'manage users']); // ex : CRUD utilisateurs
-        Permission::create(['name' => 'view dashboard']); // ex : Accès au dashboard
-
+        Permission::create(['name' => 'manage users']);
+        Permission::create(['name' => 'view dashboard']);
         // Attribution des permissions au rôle Admin
         $adminRole->givePermissionTo('manage users');
         $adminRole->givePermissionTo('view dashboard');
