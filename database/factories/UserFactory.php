@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -31,18 +32,18 @@ class UserFactory extends Factory
         return [
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
-            'password' => $this->faker->lexify('1???@???A???'),
-            'gender' => $this->faker->text($this->faker->numberBetween(5, 255)),
+            'password' => Hash::make('password'),
+            'gender' => $this->faker->randomElement(['male', 'female']),
             'birth_date' => $this->faker->date('Y-m-d'),
-            'email' => $this->faker->email,
-            'experience' => $this->faker->text($this->faker->numberBetween(5, 255)),
-            'address' => $this->faker->text($this->faker->numberBetween(5, 255)),
-            'phone' => $this->faker->numerify('0##########'),
-            'profile_status' => $this->faker->boolean,
-            'is_admin' => $this->faker->boolean,
-            'created_at' => $this->faker->date('Y-m-d H:i:s'),
-            'updated_at' => $this->faker->date('Y-m-d H:i:s'),
-            'category_id' => $this->faker->word
+            'email' => $this->faker->unique()->safeEmail,
+            'experience' => $this->faker->randomElement(['debutant', 'intermediaire', 'avancé']),
+            'address' => $this->faker->address,
+            'phone' => $this->faker->numerify('0#########'),
+            'profile_status' => true, // Statut actif par défaut
+            'is_admin' => false, // Par défaut, utilisateur simple
+            'created_at' => now(),
+            'updated_at' => now(),
+            'category_id' => $category->id,
         ];
     }
 }
