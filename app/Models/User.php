@@ -2,22 +2,26 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasName;
+use Illuminate\Foundation\Auth\User as Authenticatable;
  use Illuminate\Database\Eloquent\Factories\HasFactory;
+ use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 /**
  * @OA\Schema(
  *      schema="User",
  *      required={"first_name","last_name","password","gender","birth_date","email","experience","address","phone","profile_status","is_admin","category_id"},
  *      @OA\Property(
  *          property="first_name",
- *          description="",
+ *          description="Le prénom de l'utilisateur",
  *          readOnly=false,
  *          nullable=false,
  *          type="string",
  *      ),
  *      @OA\Property(
  *          property="last_name",
- *          description="",
+ *          description="Le nom de l'utilisateur",
  *          readOnly=false,
  *          nullable=false,
  *          type="string",
@@ -103,14 +107,21 @@ use Illuminate\Database\Eloquent\Model;
  *          format="date-time"
  *      )
  * )
- */class User extends Model
+ */
+class User extends Authenticatable implements FilamentUser, HasName
 {
-    use HasFactory;    public $table = 'users';
+    use HasFactory, Notifiable, HasRoles;
+    
+    public $table = 'users';
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     public $fillable = [
         'first_name',
         'last_name',
-        'password',
         'gender',
         'birth_date',
         'email',
@@ -122,6 +133,21 @@ use Illuminate\Database\Eloquent\Model;
         'category_id'
     ];
 
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
     protected $casts = [
         'first_name' => 'string',
         'last_name' => 'string',
@@ -133,7 +159,8 @@ use Illuminate\Database\Eloquent\Model;
         'address' => 'string',
         'phone' => 'string',
         'profile_status' => 'boolean',
-        'is_admin' => 'boolean'
+        'is_admin' => 'boolean',
+
     ];
 
     public static array $rules = [
@@ -142,7 +169,7 @@ use Illuminate\Database\Eloquent\Model;
         'password' => 'required|string|max:255',
         'gender' => 'required|string|max:255',
         'birth_date' => 'required',
-        'email' => 'required|string|max:255',
+        'email' => 'required|string|max:255|unique:users',
         'experience' => 'required|string|max:255',
         'address' => 'required|string|max:255',
         'phone' => 'required|string|max:255',
@@ -150,8 +177,20 @@ use Illuminate\Database\Eloquent\Model;
         'is_admin' => 'required|boolean',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
-        'category_id' => 'required'
+        'category_id' => 'required|exists:categories,id'
     ];
+    
+    public function getFilamentName(): string
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
+
+    public function canAccessPanel(\Filament\Panel $panel): bool
+    {
+        // Exemple simple : seuls les administrateurs peuvent accéder au back-office
+        return $this->is_admin;
+    }
+
 
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -172,4 +211,6 @@ use Illuminate\Database\Eloquent\Model;
     {
         return $this->hasMany(\App\Models\Session::class, 'user_id');
     }
+
+    
 }

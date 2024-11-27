@@ -23,7 +23,9 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('category_name')
+                ->required()
+                ->label('Nom de la catégorie'),
             ]);
     }
 
@@ -31,7 +33,8 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('id')->sortable(),
+                Tables\Columns\TextColumn::make('category_name')->label('Nom de la catégorie')->sortable(),
             ])
             ->filters([
                 //
