@@ -24,3 +24,9 @@ Route::resource('categories', App\Http\Controllers\API\CategoryAPIController::cl
 
 Route::resource('users', App\Http\Controllers\API\UserAPIController::class)
     ->except(['create', 'edit']);
+
+Route::resource('documents', App\Http\Controllers\API\DocumentAPIController::class)
+    ->except(['create', 'edit']);
+
+Route::resource('payments', App\Http\Controllers\API\PaymentAPIController::class)
+    ->except(['create', 'edit']);
