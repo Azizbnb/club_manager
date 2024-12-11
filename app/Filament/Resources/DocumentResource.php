@@ -19,6 +19,7 @@ class DocumentResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    // ---- Affichage du formulaire ----
     public static function form(Form $form): Form
     {
         return $form->schema([
@@ -26,32 +27,33 @@ class DocumentResource extends Resource
                 ->required()
                 ->label('Type de document'), // Type de document (ex : Certificat médical)
     
-                Forms\Components\FileUpload::make('attachment')
+                Forms\Components\FileUpload::make('file_path')
                 ->required()
+                ->label('Fichiers')
                 ->multiple()
-                ->label('Fichier')
                 ->directory('documents') // Stocke les fichiers dans "storage/app/public/documents"
-                ->acceptedFileTypes(['application/pdf', 'image/*']) // Accepte PDF et images
-                ->maxSize(2048), // Limite de taille en Ko (2 Mo)
+                ->acceptedFileTypes(['application/pdf', 'image/*'])// Accepte PDF et images
+                ->maxFiles(5),
     
                 Forms\Components\Select::make('user_id')
-                ->relationship('user', 'first_name') // Relation avec le modèle User
+                ->relationship('user', 'first_name') 
                 ->required()
                 ->label('Utilisateur associé'),
         ]);
     }
     
-
+    // ---- Affichage du tableau ----
     public static function table(Table $table): Table
     {
         return $table->columns([
             Tables\Columns\TextColumn::make('id')->sortable()->label('ID'),
             Tables\Columns\TextColumn::make('type')->label('Type de document'),
-            Tables\Columns\TextColumn::make('user.first_name')->label('Utilisateur'), // Affiche le prénom de l'utilisateur
+            Tables\Columns\TextColumn::make('user.first_name')->label('Utilisateur'),
             Tables\Columns\TextColumn::make('created_at')->dateTime()->label('Ajouté le'),
             Tables\Columns\TextColumn::make('file_path')
                 ->label('Fichier')
-                ->url(fn ($record) => asset('storage/' . $record->file_path)), // Lien pour télécharger le fichier
+                ->formatStateUsing(fn ($state) => implode(', ', json_decode($state, true)))
+                ->url(fn ($record) => asset('storage/' . $record->file_path))
         ]);
     }
 
