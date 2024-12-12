@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['photo', 'medical_certificate']);
-            $table->string('file_path');
+            $table->string('type');
+            $table->string('file_path')->change();
             $table->string('status')->default('en cours');
             $table->timestamps();
 

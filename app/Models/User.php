@@ -5,8 +5,8 @@ namespace App\Models;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasName;
 use Illuminate\Foundation\Auth\User as Authenticatable;
- use Illuminate\Database\Eloquent\Factories\HasFactory;
- use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 /**
  * @OA\Schema(
@@ -122,9 +122,10 @@ class User extends Authenticatable implements FilamentUser, HasName
     public $fillable = [
         'first_name',
         'last_name',
+        'email',
+        'password',
         'gender',
         'birth_date',
-        'email',
         'experience',
         'address',
         'phone',
@@ -166,7 +167,7 @@ class User extends Authenticatable implements FilamentUser, HasName
     public static array $rules = [
         'first_name' => 'required|string|max:255',
         'last_name' => 'required|string|max:255',
-        'password' => 'required|string|max:255',
+        'password' => 'required|string|min:8',
         'gender' => 'required|string|max:255',
         'birth_date' => 'required',
         'email' => 'required|string|max:255|unique:users',
@@ -187,9 +188,20 @@ class User extends Authenticatable implements FilamentUser, HasName
 
     public function canAccessPanel(\Filament\Panel $panel): bool
     {
-        // Exemple simple : seuls les administrateurs peuvent accéder au back-office
+        // seuls les administrateurs peuvent accéder au back-office
         return $this->is_admin;
     }
+
+    /**
+     * @method bool hasRole(string $role)
+     * @method void assignRole(...$roles)
+     * @method bool hasPermissionTo(string $permission)
+     */
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->hasRole('Admin'); // Seuls les admins voient les utilisateurs
+    }
+
 
 
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -211,6 +223,5 @@ class User extends Authenticatable implements FilamentUser, HasName
     {
         return $this->hasMany(\App\Models\Session::class, 'user_id');
     }
-
     
 }
