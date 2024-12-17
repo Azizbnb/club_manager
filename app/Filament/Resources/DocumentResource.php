@@ -59,9 +59,6 @@ class DocumentResource extends Resource
                 ->url(fn ($record) => asset('storage/' . $record->file_path))
                 ->openUrlInNewTab(),
         ])
-        ->actions([
-            Tables\Actions\EditAction::make(),
-        ]);
     }
 
 
