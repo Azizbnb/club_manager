@@ -23,17 +23,21 @@ class DocumentResource extends Resource
     public static function form(Form $form): Form
     {
         return $form->schema([
-            Forms\Components\TextInput::make('type')
+                Forms\Components\Select::make('type')
+                ->options([
+                    "certificat_medical" => "Certificat médical",
+                    "photo_identite" => "Photo d'identité",
+                    "autre" => "Autre"
+                ])
                 ->required()
-                ->label('Type de document'), // Type de document (ex : Certificat médical)
+                ->label('Type de documents'),
     
                 Forms\Components\FileUpload::make('file_path')
                 ->required()
-                ->label('Fichiers')
-                ->multiple()
+                ->label('Fichier')
                 ->directory('documents') // Stocke les fichiers dans "storage/app/public/documents"
                 ->acceptedFileTypes(['application/pdf', 'image/*'])// Accepte PDF et images
-                ->maxFiles(5),
+                ->default(fn ($record) => $record ? $record->file_path : null),
     
                 Forms\Components\Select::make('user_id')
                 ->relationship('user', 'first_name') 
@@ -52,8 +56,11 @@ class DocumentResource extends Resource
             Tables\Columns\TextColumn::make('created_at')->dateTime()->label('Ajouté le'),
             Tables\Columns\TextColumn::make('file_path')
                 ->label('Fichier')
-                ->formatStateUsing(fn ($state) => implode(', ', json_decode($state, true)))
                 ->url(fn ($record) => asset('storage/' . $record->file_path))
+                ->openUrlInNewTab(),
+        ])
+        ->actions([
+            Tables\Actions\EditAction::make(),
         ]);
     }
 
