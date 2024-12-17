@@ -35,8 +35,8 @@ class DocumentResource extends Resource
                 Forms\Components\FileUpload::make('file_path')
                 ->required()
                 ->label('Fichier')
-                ->directory('documents') // Stocke les fichiers dans "storage/app/public/documents"
-                ->acceptedFileTypes(['application/pdf', 'image/*'])// Accepte PDF et images
+                ->directory('documents')
+                ->acceptedFileTypes(['application/pdf', 'image/*'])
                 ->default(fn ($record) => $record ? $record->file_path : null),
     
                 Forms\Components\Select::make('user_id')
@@ -59,6 +59,9 @@ class DocumentResource extends Resource
                 ->url(fn ($record) => asset('storage/' . $record->file_path))
                 ->openUrlInNewTab(),
         ])
+        ->actions([
+            Tables\Actions\EditAction::make(),
+        ]);
     }
 
 
