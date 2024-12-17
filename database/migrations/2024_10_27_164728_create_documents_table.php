@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
             $table->string('type');
-            $table->string('file_path')->change();
+            $table->string('file_path');
             $table->string('status')->default('en cours');
             $table->timestamps();
 

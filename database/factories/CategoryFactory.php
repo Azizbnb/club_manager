@@ -24,7 +24,7 @@ class CategoryFactory extends Factory
     {
         
         return [
-            'category_name' => $this->faker->text($this->faker->numberBetween(5, 255)),
+            'category_name' => "baby judo",
             'created_at' => $this->faker->date('Y-m-d H:i:s'),
             'updated_at' => $this->faker->date('Y-m-d H:i:s')
         ];

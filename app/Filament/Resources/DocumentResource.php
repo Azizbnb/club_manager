@@ -54,6 +54,9 @@ class DocumentResource extends Resource
                 ->label('Fichier')
                 ->formatStateUsing(fn ($state) => implode(', ', json_decode($state, true)))
                 ->url(fn ($record) => asset('storage/' . $record->file_path))
+        ])
+        ->actions([
+            Tables\Actions\EditAction::make(),
         ]);
     }
 
