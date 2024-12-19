@@ -12,17 +12,55 @@ class RoleSeeder extends Seeder
     public function run()
     {
         // Création des rôles
-        $adminRole = Role::create(['name' => 'Admin']);
-        $userRole = Role::create(['name' => 'Utilisateur simple']);
+        $adminRole = Role::firstOrCreate(['name' => 'Admin']);
+        $officeRole = Role::firstOrCreate(['name' => 'Bureau']);
+        $userRole = Role::firstOrCreate(['name' => 'Utilisateur simple']);
+
+        // Liste des permissions
+        $permissions = [
+            'add user',
+            'edit user',
+            'delete user',
+            'manage user',
+            'view sessions',
+            'view documents',
+            'view users',
+            'view payments',
+            'view categories',
+            'add categories',
+            'edit categories',
+            'del categories',
+        ];
 
         // Création des permissions
-        Permission::create(['name' => 'manage users']);
-        Permission::create(['name' => 'view dashboard']);
-        // Attribution des permissions au rôle Admin
-        $adminRole->givePermissionTo('manage users');
-        $adminRole->givePermissionTo('view dashboard');
+        foreach ($permissions as $permission) {
+            Permission::firstOrCreate(['name' => $permission]);
+        }
 
-        // Attribution de la permission "view dashboard" aux utilisateurs simples
-        $userRole->givePermissionTo('view dashboard');
+        // Attribution des permissions aux rôles
+        $adminRole->syncPermissions([
+            'add user',
+            'edit user',
+            'delete user',
+            'manage user',
+            'view sessions',
+            'view documents',
+            'view users',
+            'view payments',
+            'view categories',
+        ]);
+
+        $officeRole->syncPermissions([
+            'add user',
+            'edit user',
+            'view documents',
+            'view users',
+            'view payments',
+            'view categories',
+        ]);
+
+        $userRole->syncPermissions([
+            'view documents',
+        ]);
     }
 }

@@ -186,23 +186,6 @@ class User extends Authenticatable implements FilamentUser, HasName
         return "{$this->first_name} {$this->last_name}";
     }
 
-    public function canAccessPanel(\Filament\Panel $panel): bool
-    {
-        // seuls les administrateurs peuvent accéder au back-office
-        return $this->is_admin;
-    }
-
-    /**
-     * @method bool hasRole(string $role)
-     * @method void assignRole(...$roles)
-     * @method bool hasPermissionTo(string $permission)
-     */
-    public static function canViewAny(): bool
-    {
-        return auth()->user()->hasRole('Admin'); // Seuls les admins voient les utilisateurs
-    }
-
-
 
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
