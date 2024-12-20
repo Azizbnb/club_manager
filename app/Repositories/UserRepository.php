@@ -18,7 +18,6 @@ class UserRepository extends BaseRepository
         'address',
         'phone',
         'profile_status',
-        'is_admin',
         'category_id'
     ];
 

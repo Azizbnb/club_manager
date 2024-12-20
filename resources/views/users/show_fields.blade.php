@@ -58,12 +58,6 @@
     <p>{{ $user->profile_status }}</p>
 </div>
 
-<!-- Is Admin Field -->
-<div class="col-sm-12">
-    {!! Form::label('is_admin', 'Is Admin:') !!}
-    <p>{{ $user->is_admin }}</p>
-</div>
-
 <!-- Category Id Field -->
 <div class="col-sm-12">
     {!! Form::label('category_id', 'Category Id:') !!}
