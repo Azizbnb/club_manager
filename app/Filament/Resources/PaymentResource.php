@@ -64,6 +64,6 @@ class PaymentResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return auth()->user()->hasRole('Admin', 'Bureau');
+        return true;
     }
 }
