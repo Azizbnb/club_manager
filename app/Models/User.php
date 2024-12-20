@@ -179,7 +179,7 @@ class User extends Authenticatable implements FilamentUser, HasName
 
     public function canAccessPanel(\Filament\Panel $panel): bool
     {
-        return true;
+        return $this->hasPermissionTo('view dashboard');
     }
 
 
