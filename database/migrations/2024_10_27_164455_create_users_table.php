@@ -23,7 +23,6 @@ return new class extends Migration
             $table->string('address');
             $table->string('phone');
             $table->boolean('profile_status')->default(false);
-            $table->boolean('is_admin')->default(false);
             $table->timestamps();
 
             $table->foreignId('category_id')->constrained()->onDelete('cascade');

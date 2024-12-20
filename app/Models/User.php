@@ -11,7 +11,7 @@ use Spatie\Permission\Traits\HasRoles;
 /**
  * @OA\Schema(
  *      schema="User",
- *      required={"first_name","last_name","password","gender","birth_date","email","experience","address","phone","profile_status","is_admin","category_id"},
+ *      required={"first_name","last_name","password","gender","birth_date","email","experience","address","phone","profile_status","category_id"},
  *      @OA\Property(
  *          property="first_name",
  *          description="Le prénom de l'utilisateur",
@@ -84,13 +84,6 @@ use Spatie\Permission\Traits\HasRoles;
  *          type="boolean",
  *      ),
  *      @OA\Property(
- *          property="is_admin",
- *          description="",
- *          readOnly=false,
- *          nullable=false,
- *          type="boolean",
- *      ),
- *      @OA\Property(
  *          property="created_at",
  *          description="",
  *          readOnly=true,
@@ -130,7 +123,6 @@ class User extends Authenticatable implements FilamentUser, HasName
         'address',
         'phone',
         'profile_status',
-        'is_admin',
         'category_id'
     ];
 
@@ -160,7 +152,6 @@ class User extends Authenticatable implements FilamentUser, HasName
         'address' => 'string',
         'phone' => 'string',
         'profile_status' => 'boolean',
-        'is_admin' => 'boolean',
 
     ];
 
@@ -175,15 +166,20 @@ class User extends Authenticatable implements FilamentUser, HasName
         'address' => 'required|string|max:255',
         'phone' => 'required|string|max:255',
         'profile_status' => 'required|boolean',
-        'is_admin' => 'required|boolean',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
-        'category_id' => 'required|exists:categories,id'
+        'category_id' => 'required|exists:categories,id',
+        'role' => 'required|in:Admin,Bureau,Utilisateur simple'
     ];
     
     public function getFilamentName(): string
     {
         return "{$this->first_name} {$this->last_name}";
+    }
+
+    public function canAccessPanel(\Filament\Panel $panel): bool
+    {
+        return $this->hasPermissionTo('view dashboard');
     }
 
 

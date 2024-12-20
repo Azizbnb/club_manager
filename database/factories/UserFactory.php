@@ -40,7 +40,6 @@ class UserFactory extends Factory
             'address' => $this->faker->address,
             'phone' => $this->faker->numerify('0#########'),
             'profile_status' => true, // Statut actif par défaut
-            'is_admin' => false, // Par défaut, utilisateur simple
             'created_at' => now(),
             'updated_at' => now(),
             'category_id' => $category->id,
