@@ -18,18 +18,28 @@ class RoleSeeder extends Seeder
 
         // Liste des permissions
         $permissions = [
+            'view users',
             'add user',
             'edit user',
             'delete user',
             'manage user',
+            'view dashboard',
             'view sessions',
             'view documents',
-            'view users',
+            'add documents',
+            'edit documents',
+            'delete documents',
+            'manage documents',
             'view payments',
+            'add payments',
+            'edit payments',
+            'delete payments',
+            'manage payments',
             'view categories',
             'add categories',
             'edit categories',
-            'del categories',
+            'delete categories',
+            'manage categories',
         ];
 
         // Création des permissions
@@ -39,27 +49,45 @@ class RoleSeeder extends Seeder
 
         // Attribution des permissions aux rôles
         $adminRole->syncPermissions([
+            'view users',
             'add user',
             'edit user',
             'delete user',
             'manage user',
+            'view dashboard',
             'view sessions',
             'view documents',
-            'view users',
+            'add documents',
+            'edit documents',
+            'delete documents',
+            'manage documents',
             'view payments',
+            'add payments',
+            'edit payments',
+            'delete payments',
+            'manage payments',
             'view categories',
+            'add categories',
+            'edit categories',
+            'delete categories',
+            'manage categories',
         ]);
 
         $officeRole->syncPermissions([
+            'view dashboard',
+            'view users',
             'add user',
             'edit user',
             'view documents',
-            'view users',
+            'add documents',
+            'edit documents',
             'view payments',
+            'edit payments',
             'view categories',
         ]);
 
         $userRole->syncPermissions([
+            'view dashboard',
             'view documents',
         ]);
     }

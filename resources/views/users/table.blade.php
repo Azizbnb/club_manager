@@ -13,7 +13,6 @@
                 <th>Address</th>
                 <th>Phone</th>
                 <th>Profile Status</th>
-                <th>Is Admin</th>
                 <th>Category Id</th>
                 <th colspan="3">Action</th>
             </tr>
@@ -31,7 +30,6 @@
                     <td>{{ $user->address }}</td>
                     <td>{{ $user->phone }}</td>
                     <td>{{ $user->profile_status }}</td>
-                    <td>{{ $user->is_admin }}</td>
                     <td>{{ $user->category_id }}</td>
                     <td  style="width: 120px">
                         {!! Form::open(['route' => ['users.destroy', $user->id], 'method' => 'delete']) !!}

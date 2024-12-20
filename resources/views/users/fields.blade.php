@@ -67,15 +67,6 @@
     </div>
 </div>
 
-<!-- Is Admin Field -->
-<div class="form-group col-sm-6">
-    <div class="form-check">
-        {!! Form::hidden('is_admin', 0, ['class' => 'form-check-input']) !!}
-        {!! Form::checkbox('is_admin', '1', null, ['class' => 'form-check-input']) !!}
-        {!! Form::label('is_admin', 'Is Admin', ['class' => 'form-check-label']) !!}
-    </div>
-</div>
-
 <!-- Category Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('category_id', 'Category Id:') !!}
