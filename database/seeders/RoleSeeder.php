@@ -19,10 +19,10 @@ class RoleSeeder extends Seeder
         // Liste des permissions
         $permissions = [
             'view users',
-            'add user',
-            'edit user',
-            'delete user',
-            'manage user',
+            'add users',
+            'edit users',
+            'delete users',
+            'manage users',
             'view dashboard',
             'view sessions',
             'view documents',
@@ -50,10 +50,10 @@ class RoleSeeder extends Seeder
         // Attribution des permissions aux rôles
         $adminRole->syncPermissions([
             'view users',
-            'add user',
-            'edit user',
-            'delete user',
-            'manage user',
+            'add users',
+            'edit users',
+            'delete users',
+            'manage users',
             'view dashboard',
             'view sessions',
             'view documents',
@@ -76,8 +76,8 @@ class RoleSeeder extends Seeder
         $officeRole->syncPermissions([
             'view dashboard',
             'view users',
-            'add user',
-            'edit user',
+            'add users',
+            'edit users',
             'view documents',
             'add documents',
             'edit documents',
