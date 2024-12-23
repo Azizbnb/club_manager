@@ -9,7 +9,7 @@ class Role extends SpatieRole
 
     public const ROLE_ADMIN = 'Admin';
     public const ROLE_BUREAU = 'Bureau';
-    public const ROLE_USER = 'Utilisateur simple';
+    public const ROLE_USER = 'Membre';
 
     /**
      * Vérifier si un rôle est réservé aux administrateurs.
