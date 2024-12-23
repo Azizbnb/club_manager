@@ -14,7 +14,7 @@ class RoleSeeder extends Seeder
         // Création des rôles
         $adminRole = Role::firstOrCreate(['name' => 'Admin']);
         $officeRole = Role::firstOrCreate(['name' => 'Bureau']);
-        $userRole = Role::firstOrCreate(['name' => 'Utilisateur simple']);
+        $userRole = Role::firstOrCreate(['name' => 'Membre']);
 
         // Liste des permissions
         $permissions = [
