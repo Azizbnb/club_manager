@@ -35,7 +35,7 @@ class CategoryResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('id')->sortable(),
                 Tables\Columns\TextColumn::make('category_name')->label('Nom de la catégorie')->sortable(),
-                Tables\Columns\TextColumn::make('created_at')->dateTime()->label('Créé le'),
+                Tables\Columns\TextColumn::make('created_at')->dateTime('d/m/Y')->label('Créé le'),
             ])
             ->filters([
                 //
