@@ -16,4 +16,10 @@ class ListUsers extends ListRecords
             Actions\CreateAction::make(),
         ];
     }
+
+    public function canDelete(User $record): bool
+    {
+        return auth()->user()->hasPermissionTo('delete users');
+    }
+
 }

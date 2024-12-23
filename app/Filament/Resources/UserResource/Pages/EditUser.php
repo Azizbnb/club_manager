@@ -17,4 +17,9 @@ class EditUser extends EditRecord
         ];
     }
 
+    public function canDelete(User $record): bool
+    {
+        return auth()->user()->hasPermissionTo('delete users');
+    }
+
 }
