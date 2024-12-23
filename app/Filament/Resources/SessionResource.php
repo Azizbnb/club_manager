@@ -80,4 +80,9 @@ class SessionResource extends Resource
             'edit' => Pages\EditSession::route('/{record}/edit'),
         ];
     }
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->hasPermissionTo('view sessions');
+    }
 }
