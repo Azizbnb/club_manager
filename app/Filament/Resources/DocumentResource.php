@@ -55,6 +55,15 @@ class DocumentResource extends Resource
                 ->relationship('user', 'first_name') 
                 ->required()
                 ->label('Utilisateur associé'),
+
+                Forms\Components\Select::make('status')
+                ->options([
+                    "Reçu" => "Reçu",
+                    "Envoyé" => "Envoyé",
+                    "En attente" => "en Attente"
+                ])
+                ->required()
+                ->label('Etat de la Récéption'),
         ]);
     }
     
@@ -65,15 +74,27 @@ class DocumentResource extends Resource
         ->columns([
             Tables\Columns\TextColumn::make('type')->label('Type de document')
                 ->searchable(),
-            Tables\Columns\TextColumn::make('user.first_name')->label('Utilisateur'),
-            Tables\Columns\TextColumn::make('created_at')->dateTime()->label('Ajouté le'),
+            Tables\Columns\TextColumn::make('user.first_name')->label('Appartient à')
+                ->searchable(),
+            Tables\Columns\TextColumn::make('created_at')->dateTime()->label('Ajouté le')
+                ->searchable(),
             Tables\Columns\TextColumn::make('file_path')
                 ->label('Fichier')
                 ->url(fn ($record) => asset('storage/' . $record->file_path))
                 ->openUrlInNewTab(),
             
-            Tables\Columns\IconColumn::make('status')->label('Récéption')
-                ->boolean(),
+            Tables\Columns\IconColumn::make('status')
+                ->options([
+                    'heroicon-o-check-circle' => 'Reçu',
+                    'heroicon-o-paper-airplane' => 'Envoyé',
+                    'heroicon-o-clock' => 'En attente',
+                ])
+                ->colors([
+                    'success' => 'Reçu',
+                    'primary' => 'Envoyé',
+                    'warning' => 'En attente',
+                ])
+                ->label('Récéption'),
         ])
 
         ->filters([])
