@@ -52,7 +52,15 @@ class DocumentResource extends Resource
                 ->default(fn ($record) => $record ? $record->file_path : null),
     
                 Forms\Components\Select::make('user_id')
-                ->relationship('user', 'first_name') 
+                ->options(function () {
+                    $user = auth()->user();
+
+                    if ($user->hasRole('Membre')) {
+                        return [$user->id => $user->first_name];
+                    }else{
+                        return \App\Models\User::pluck('first_name', 'id')->toArray();
+                    }
+                })
                 ->required()
                 ->label('Utilisateur associé'),
 
