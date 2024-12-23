@@ -12,8 +12,21 @@ class EditDocument extends EditRecord
 
     protected function getHeaderActions(): array
     {
-        return [
-            Actions\DeleteAction::make(),
-        ];
+        if(auth()->user()->hasPermissionTo('delete documents')){
+            return [
+                Actions\DeleteAction::make(),
+            ];
+        } else {
+            return [];
+        }
+    }
+
+    protected function canEdit(): bool
+    {
+        if(auth()->user()->hasPermissionTo('edit documents')) {
+            return true;
+        }else {
+            return false;
+        }
     }
 }

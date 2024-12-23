@@ -12,7 +12,11 @@ class CreateDocument extends CreateRecord
 
     protected function canCreate(): bool
     {
-        return auth()->user()->hasPermissionTo('create documents');
+        if(auth()->user()->hasPermissionTo('create documents')) {
+            return true;
+        }else {
+            return false;
+        }
     }
 
 }

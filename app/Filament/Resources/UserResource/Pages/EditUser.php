@@ -12,14 +12,22 @@ class EditUser extends EditRecord
 
     protected function getHeaderActions(): array
     {
-        return [
-            Actions\DeleteAction::make(),
-        ];
+        if(auth()->user()->hasPermissionTo('delete users')){
+            return [
+                Actions\DeleteAction::make(),
+            ];
+        } else {
+            return [];
+        }
     }
 
-    public function canDelete(User $record): bool
+    public function canEdit(): bool
     {
-        return auth()->user()->hasPermissionTo('delete users');
+        if(auth()->user()->hasPermissionTo('edit users')) {
+            return true;
+        }else {
+            return false;
+        };
     }
 
 }

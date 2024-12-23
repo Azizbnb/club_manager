@@ -12,9 +12,13 @@ class ListUsers extends ListRecords
 
     protected function getHeaderActions(): array
     {
-        return [
-            Actions\CreateAction::make(),
-        ];
+        if(auth()->user()->hasPermissionTo('create users')){
+            return [
+                Actions\CreateAction::make(),
+            ];
+        } else {
+            return [];
+        }
     }
 
     public function canDelete(User $record): bool

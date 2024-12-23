@@ -12,8 +12,12 @@ class ListDocuments extends ListRecords
 
     protected function getHeaderActions(): array
     {
-        return [
-            Actions\CreateAction::make(),
-        ];
+        if(auth()->user()->hasPermissionTo('create documents')){
+            return [
+                Actions\CreateAction::make(),
+            ];
+        } else {
+            return [];
+        }
     }
 }

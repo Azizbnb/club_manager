@@ -12,8 +12,12 @@ class ListCategories extends ListRecords
 
     protected function getHeaderActions(): array
     {
-        return [
-            Actions\CreateAction::make(),
-        ];
+        if(auth()->user()->hasPermissionTo('create categories')){
+            return [
+                Actions\CreateAction::make(),
+            ];
+        } else {
+            return [];
+        }
     }
 }

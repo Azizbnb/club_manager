@@ -41,12 +41,14 @@ class CategoryResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->visible(fn ($record) => auth()->user()->can('edit categories')),
+                Tables\Actions\DeleteAction::make()
+                    ->visible(fn ($record) => auth()->user()->can('delete categories')),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make()
+                    ->visible(fn () => auth()->user()->can('delete categories')),
             ]);
     }
 
