@@ -59,7 +59,6 @@ class DocumentResource extends Resource
                 Forms\Components\Select::make('status')
                 ->options([
                     "Reçu" => "Reçu",
-                    "Envoyé" => "Envoyé",
                     "En attente" => "en Attente"
                 ])
                 ->required()
@@ -86,12 +85,10 @@ class DocumentResource extends Resource
             Tables\Columns\IconColumn::make('status')
                 ->options([
                     'heroicon-o-check-circle' => 'Reçu',
-                    'heroicon-o-paper-airplane' => 'Envoyé',
                     'heroicon-o-clock' => 'En attente',
                 ])
                 ->colors([
                     'success' => 'Reçu',
-                    'primary' => 'Envoyé',
                     'warning' => 'En attente',
                 ])
                 ->label('Récéption'),
