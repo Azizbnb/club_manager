@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('experience');
             $table->string('address');
             $table->string('phone');
-            $table->boolean('profile_status')->default(false);
+            $table->string('profile_status')->default('en attente');
             $table->timestamps();
 
             $table->foreignId('category_id')->constrained()->onDelete('cascade');

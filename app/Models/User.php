@@ -81,7 +81,7 @@ use Spatie\Permission\Traits\HasRoles;
  *          description="",
  *          readOnly=false,
  *          nullable=false,
- *          type="boolean",
+ *          type="string",
  *      ),
  *      @OA\Property(
  *          property="created_at",
@@ -151,7 +151,7 @@ class User extends Authenticatable implements FilamentUser, HasName
         'experience' => 'string',
         'address' => 'string',
         'phone' => 'string',
-        'profile_status' => 'boolean',
+        'profile_status' => 'string',
 
     ];
 
@@ -165,11 +165,11 @@ class User extends Authenticatable implements FilamentUser, HasName
         'experience' => 'required|string|max:255',
         'address' => 'required|string|max:255',
         'phone' => 'required|string|max:255',
-        'profile_status' => 'required|boolean',
+        'profile_status' => 'required|string',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'category_id' => 'required|exists:categories,id',
-        'role' => 'required|in:Admin,Bureau,Utilisateur simple'
+        'role' => 'required|in:Admin,Bureau,Membre'
     ];
     
     public function getFilamentName(): string

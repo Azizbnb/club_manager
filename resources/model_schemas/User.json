@@ -121,9 +121,9 @@
     },
     {
         "name": "profile_status",
-        "dbType": "boolean",
-        "htmlType": "checkbox",
-        "validations": "required|boolean|boolean",
+        "dbType": "string",
+        "htmlType": "text",
+        "validations": "required|string|max:255|string|max:255",
         "searchable": true,
         "fillable": true,
         "primary": false,
