@@ -17,6 +17,5 @@ class UserSeeder extends Seeder
         $user = User::factory()->count(10)->create()->each(function ($user) {
             $user->assignRole('Membre');
         });
-
     }
 }

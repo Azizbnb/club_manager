@@ -12,8 +12,21 @@ class EditPayment extends EditRecord
 
     protected function getHeaderActions(): array
     {
-        return [
-            Actions\DeleteAction::make(),
-        ];
+        if(auth()->user()->hasPermissionTo('delete payments')){
+            return [
+                Actions\DeleteAction::make(),
+            ];
+        } else {
+            return [];
+        }
+    }
+
+    protected function canEdit(): bool
+    {
+        if(auth()->user()->hasPermissionTo('edit payments')) {
+            return true;
+        }else {
+            return false;
+        }
     }
 }

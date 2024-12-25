@@ -81,6 +81,7 @@ class RoleSeeder extends Seeder
             'edit users',
             'view all documents',
             'create documents',
+            'create payments',
             'edit documents',
             'view payments',
             'edit payments',
