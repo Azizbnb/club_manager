@@ -67,7 +67,7 @@ class DocumentResource extends Resource
                 Forms\Components\Select::make('status')
                 ->options([
                     "Reçu" => "Reçu",
-                    "En attente" => "en Attente"
+                    "En attente" => "En attente"
                 ])
                 ->required()
                 ->label('Etat de la Récéption'),
@@ -83,7 +83,7 @@ class DocumentResource extends Resource
                 ->searchable(),
             Tables\Columns\TextColumn::make('user.first_name')->label('Appartient à')
                 ->searchable(),
-            Tables\Columns\TextColumn::make('created_at')->dateTime()->label('Ajouté le')
+            Tables\Columns\TextColumn::make('created_at')->dateTime('d/m/Y')->label('Ajouté le')
                 ->searchable(),
             Tables\Columns\TextColumn::make('file_path')
                 ->label('Fichier')

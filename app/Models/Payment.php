@@ -84,14 +84,14 @@ use Illuminate\Database\Eloquent\Model;
     ];
 
     public static array $rules = [
-        'amount' => 'required|numeric',
-        'payment_method' => 'required|string|max:255',
-        'status' => 'required|string|max:255',
+        'amount' => 'nullable|numeric',
+        'payment_method' => 'nullable|string|max:255',
+        'status' => 'nullable|string|max:255',
         'transaction_id' => 'nullable|string|max:255',
-        'date' => 'required',
+        'date' => 'nullable',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
-        'user_id' => 'required'
+        'user_id' => 'nullable'
     ];
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
