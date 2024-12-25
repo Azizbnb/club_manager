@@ -14,29 +14,30 @@ class RoleSeeder extends Seeder
         // Création des rôles
         $adminRole = Role::firstOrCreate(['name' => 'Admin']);
         $officeRole = Role::firstOrCreate(['name' => 'Bureau']);
-        $userRole = Role::firstOrCreate(['name' => 'Utilisateur simple']);
+        $userRole = Role::firstOrCreate(['name' => 'Membre']);
 
         // Liste des permissions
         $permissions = [
             'view users',
-            'add user',
-            'edit user',
-            'delete user',
-            'manage user',
+            'create users',
+            'edit users',
+            'delete users',
+            'manage users',
             'view dashboard',
             'view sessions',
-            'view documents',
-            'add documents',
+            'view own documents',
+            'view all documents',
+            'create documents',
             'edit documents',
             'delete documents',
             'manage documents',
             'view payments',
-            'add payments',
+            'create payments',
             'edit payments',
             'delete payments',
             'manage payments',
             'view categories',
-            'add categories',
+            'create categories',
             'edit categories',
             'delete categories',
             'manage categories',
@@ -50,24 +51,24 @@ class RoleSeeder extends Seeder
         // Attribution des permissions aux rôles
         $adminRole->syncPermissions([
             'view users',
-            'add user',
-            'edit user',
-            'delete user',
-            'manage user',
+            'create users',
+            'edit users',
+            'delete users',
+            'manage users',
             'view dashboard',
             'view sessions',
-            'view documents',
-            'add documents',
+            'view all documents',
+            'create documents',
             'edit documents',
             'delete documents',
             'manage documents',
             'view payments',
-            'add payments',
+            'create payments',
             'edit payments',
             'delete payments',
             'manage payments',
             'view categories',
-            'add categories',
+            'create categories',
             'edit categories',
             'delete categories',
             'manage categories',
@@ -76,10 +77,11 @@ class RoleSeeder extends Seeder
         $officeRole->syncPermissions([
             'view dashboard',
             'view users',
-            'add user',
-            'edit user',
-            'view documents',
-            'add documents',
+            'create users',
+            'edit users',
+            'view all documents',
+            'create documents',
+            'create payments',
             'edit documents',
             'view payments',
             'edit payments',
@@ -88,7 +90,8 @@ class RoleSeeder extends Seeder
 
         $userRole->syncPermissions([
             'view dashboard',
-            'view documents',
+            'view own documents',
+            'create documents',
         ]);
     }
 }

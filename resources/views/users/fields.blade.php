@@ -61,9 +61,8 @@
 <!-- Profile Status Field -->
 <div class="form-group col-sm-6">
     <div class="form-check">
-        {!! Form::hidden('profile_status', 0, ['class' => 'form-check-input']) !!}
-        {!! Form::checkbox('profile_status', '1', null, ['class' => 'form-check-input']) !!}
-        {!! Form::label('profile_status', 'Profile Status', ['class' => 'form-check-label']) !!}
+        {!! Form::label('profile_status', 'Profile Status:') !!}
+        {!! Form::text('profile_status', null, ['class' => 'form-control', 'required', 'maxlength' => 255, 'maxlength' => 255]) !!}
     </div>
 </div>
 

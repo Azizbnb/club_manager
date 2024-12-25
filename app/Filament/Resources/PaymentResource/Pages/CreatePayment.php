@@ -9,4 +9,13 @@ use Filament\Resources\Pages\CreateRecord;
 class CreatePayment extends CreateRecord
 {
     protected static string $resource = PaymentResource::class;
+
+    protected function canCreate(): bool
+    {
+        if(auth()->user()->hasPermissionTo('create payments')) {
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

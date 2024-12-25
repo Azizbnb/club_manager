@@ -37,19 +37,12 @@ class SessionResource extends Resource
                     ->label('Nom Utilisateur')
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('id')
-                    ->label('Session ID')
-                    ->sortable(),
-
                 Tables\Columns\TextColumn::make('user_id')
                     ->label('ID Utilisateur')
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('ip_address')
                     ->label('Adresse IP'),
-
-                Tables\Columns\TextColumn::make('user_agent')
-                    ->label('User Agent'),
 
                 Tables\Columns\TextColumn::make('last_activity')
                     ->label('Dernière Activité')
@@ -79,5 +72,10 @@ class SessionResource extends Resource
             'create' => Pages\CreateSession::route('/create'),
             'edit' => Pages\EditSession::route('/{record}/edit'),
         ];
+    }
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->hasPermissionTo('view sessions');
     }
 }

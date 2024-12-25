@@ -35,18 +35,20 @@ class CategoryResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('id')->sortable(),
                 Tables\Columns\TextColumn::make('category_name')->label('Nom de la catégorie')->sortable(),
-                Tables\Columns\TextColumn::make('created_at')->dateTime()->label('Créé le'),
+                Tables\Columns\TextColumn::make('created_at')->dateTime('d/m/Y')->label('Créé le'),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->visible(fn ($record) => auth()->user()->can('edit categories')),
+                Tables\Actions\DeleteAction::make()
+                    ->visible(fn ($record) => auth()->user()->can('delete categories')),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make()
+                    ->visible(fn () => auth()->user()->can('delete categories')),
             ]);
     }
 
@@ -64,5 +66,10 @@ class CategoryResource extends Resource
             'create' => Pages\CreateCategory::route('/create'),
             'edit' => Pages\EditCategory::route('/{record}/edit'),
         ];
+    }
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->hasPermissionTo('view categories');
     }
 }

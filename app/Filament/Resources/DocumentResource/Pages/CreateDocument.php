@@ -10,12 +10,13 @@ class CreateDocument extends CreateRecord
 {
     protected static string $resource = DocumentResource::class;
 
-    protected function mutateFormDataBeforeCreate(array $data): array
-{
-    if (is_array($data['file_path'])) {
-        $data['file_path'] = json_encode($data['file_path']); // Encode en JSON
+    protected function canCreate(): bool
+    {
+        if(auth()->user()->hasPermissionTo('create documents')) {
+            return true;
+        }else {
+            return false;
+        }
     }
 
-    return $data;
-}
 }

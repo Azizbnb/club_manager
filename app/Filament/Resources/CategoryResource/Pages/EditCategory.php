@@ -12,8 +12,21 @@ class EditCategory extends EditRecord
 
     protected function getHeaderActions(): array
     {
-        return [
-            Actions\DeleteAction::make(),
-        ];
+        if(auth()->user()->hasPermissionTo('delete categories')){
+            return [
+                Actions\DeleteAction::make(),
+            ];
+        } else {
+            return [];
+        }
+    }
+
+    protected function canEdit(): bool
+    {
+        if(auth()->user()->hasPermissionTo('edit categories')) {
+            return true;
+        }else {
+            return false;
+        }
     }
 }

@@ -10,4 +10,13 @@ class CreateUser extends CreateRecord
 {
     protected static string $resource = UserResource::class;
 
+    protected function canCreate(): bool
+    {
+        if(auth()->user()->hasPermissionTo('create users')) {
+            return true;
+        }else {
+            return false;
+        };;
+    }
+
 }

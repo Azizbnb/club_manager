@@ -81,9 +81,15 @@ class UserResource extends Resource
                     ->required()
                     ->label('Catégorie'),
 
-                    Forms\Components\Toggle::make('profile_status')
-                    ->label('Etat de l\'inscription')
-                    ->default(false),
+                    Forms\Components\Select::make('profile_status')
+                    ->options([
+                        'certficat manquant' => 'Certficat manquant',
+                        'photo manquante' => 'Photo manquante',
+                        'payement incomplet' => 'Payement incomplet',
+                        'payement partiellement complet' => 'payement partiellement complet',
+                    ])
+                    ->required()
+                    ->label('Etat du dossier'),
 
                     Forms\Components\Select::make('role')
                     ->label('Rôle')
@@ -105,25 +111,38 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')->sortable()->label('ID'),
-                Tables\Columns\TextColumn::make('first_name')->label('Prénom'),
-                Tables\Columns\TextColumn::make('last_name')->label('Nom'),
-                Tables\Columns\TextColumn::make('gender')->label('Genre'),
-                Tables\Columns\TextColumn::make('email')->label('Email'),
-                Tables\Columns\TextColumn::make('roles.name')->label('Role'),
-                Tables\Columns\TextColumn::make('category.category_name')->label('Catégorie'),
-                Tables\Columns\TextColumn::make('created_at')->dateTime()->label('Créé le'),
+                Tables\Columns\TextColumn::make('first_name')->label('Prénom')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('last_name')->label('Nom')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('email')->label('Email')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('gender')->label('Genre')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('experience')->label('Expérience')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('roles.name')->label('Role')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('profile_status')->label('Etat du dossier')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('category.category_name')->label('Catégorie')
+                    ->searchable(),
+                
+                Tables\Columns\TextColumn::make('created_at')->dateTime('d/m/Y')->label('Créé le'),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->visible(fn () => auth()->user()->can('edit users')),
                 Tables\Actions\DeleteAction::make()
+                    ->visible(fn ($record) => auth()->user()->hasPermissionTo('delete users')),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->visible(fn () => auth()->user()->can('delete users')),
                 ]),
             ]);
     }
@@ -154,6 +173,12 @@ class UserResource extends Resource
     {
         $this->record->syncRoles($this->form->getState('role'));
     }
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->hasPermissionTo('view users');
+    }
+
 
 
 }
