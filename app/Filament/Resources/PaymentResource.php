@@ -19,6 +19,16 @@ class PaymentResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery();
+
+        if (auth()->user()->hasRole('Membre')) {
+            $query->where('user_id', auth()->id());
+        }
+        return $query;
+    }
+
     public static function form(Form $form): Form
     {
         return $form->schema([
@@ -118,10 +128,5 @@ class PaymentResource extends Resource
             'create' => Pages\CreatePayment::route('/create'),
             'edit' => Pages\EditPayment::route('/{record}/edit'),
         ];
-    }
-
-    public static function canViewAny(): bool
-    {
-        return auth()->user()->hasPermissionTo('view payments');
     }
 }

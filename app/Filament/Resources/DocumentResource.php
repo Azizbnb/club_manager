@@ -47,6 +47,7 @@ class DocumentResource extends Resource
                 Forms\Components\FileUpload::make('file_path')
                 ->required()
                 ->label('Fichier')
+                ->hiddenOn('edit')
                 ->directory('documents')
                 ->acceptedFileTypes(['application/pdf', 'image/*'])
                 ->default(fn ($record) => $record ? $record->file_path : null),

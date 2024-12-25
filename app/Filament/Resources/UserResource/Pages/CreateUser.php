@@ -12,11 +12,7 @@ class CreateUser extends CreateRecord
 
     protected function canCreate(): bool
     {
-        if(auth()->user()->hasPermissionTo('create users')) {
-            return true;
-        }else {
-            return false;
-        };;
+        return auth()->user()->hasPermissionTo('create users');
     }
 
 }
