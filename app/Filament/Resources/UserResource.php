@@ -13,8 +13,6 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Spatie\Permission\Models\Role;
-
-
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
@@ -98,10 +96,6 @@ class UserResource extends Resource
                     ->preload()
                     ->relationship('roles', 'name')
                     ->label('Attribuer un rôle'),
-
-            
-
-                    // Par défaut, pas de rôle visible
                     
             ]);
     }

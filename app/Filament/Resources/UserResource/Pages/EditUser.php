@@ -23,11 +23,7 @@ class EditUser extends EditRecord
 
     public function canEdit(): bool
     {
-        if(auth()->user()->hasPermissionTo('edit users')) {
-            return true;
-        }else {
-            return false;
-        };
+        return auth()->user()->hasPermissionTo('edit users');
     }
 
 }
