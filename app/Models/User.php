@@ -164,7 +164,7 @@ class User extends Authenticatable implements FilamentUser, HasName
         'email' => 'required|string|max:255|unique:users',
         'experience' => 'required|string|max:255',
         'address' => 'required|string|max:255',
-        'phone' => 'required|string|max:255',
+        'phone' => 'required|digits_between:10,15',
         'profile_status' => 'required|string',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
